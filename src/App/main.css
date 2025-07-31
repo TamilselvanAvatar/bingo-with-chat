@@ -1,0 +1,28 @@
+.player-conainer {
+    display: flex;
+    width: 50%;
+    margin: auto;
+    position: relative;
+    top: 250px;
+}
+
+.input-player {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    width: 80%;
+
+}
+
+.btn-next {
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    font-weight: bold;
+    background: #f6f62ccf;
+}
+
+.btn-next:hover {
+    cursor: pointer;
+    border: 1px solid yellow;
+}

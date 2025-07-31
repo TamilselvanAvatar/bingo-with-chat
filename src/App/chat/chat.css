@@ -1,0 +1,70 @@
+.container {
+    right: 0;
+    bottom: 0;
+    width: 25%;
+    z-index: 1;
+    margin: 10px;
+    position: fixed;
+    padding: 16px 16px;
+    border-radius: 4px;
+}
+
+.input {
+    width: 85%;
+    margin: 0px 5px;
+    padding: 7px 8px !important;
+}
+
+.btn {
+    width: 15%;
+    margin-left: 8px;
+    cursor: pointer;
+    background-color: rgb(150, 213, 241);
+}
+
+.btn :hover {
+    border: 2px solid rgb(1, 198, 247);
+}
+
+.border {
+    padding: 0px 3px;
+    border-radius: 8px;
+    border: 0px white;
+}
+
+.message {
+    display: flex;
+    margin: 5px;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: rgba(199, 202, 96, 0.229);
+}
+
+.showMessages {
+    border-radius: 10px;
+    margin: 5px;
+    padding: 3px;
+    background-color: #92d3d0;
+}
+
+.showmessager {
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.chatbox {
+    width: 65%;
+    padding: 15px;
+    overflow-y: auto;
+    max-height: 400px;
+    margin-left: auto;
+    border-radius: 10px;
+    background-color: #ECEFF1;
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.chatbox::-webkit-scrollbar {
+    /* Will remobe scroll bar */
+    display: none;  /* Chrome, Safari, Opera */ 
+}

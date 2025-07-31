@@ -1,0 +1,33 @@
+.bingo-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 65%;
+}
+
+.bingo-element-box {
+    width: 15%;
+    margin: 2px 4px;
+    padding: 20px;
+    text-align: center;
+    background: #95e28d66;
+    border: 1px solid #000400;
+}
+
+.bingo-board {
+    width: 76%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: 100px;
+}
+
+.crossed-box {
+    color: wheat;
+    background-color: rgb(222, 97, 97);
+    border: 1px solid black;
+}
+
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+}
