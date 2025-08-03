@@ -1,19 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Chat from './chat/chat';
 import { logInfo, toJson, toStringify } from '../helper/util';
 import Bingo from './bingo/bingo';
 import BingoSetup from '../helper/bingoSetup'
 import { IsBingo } from '../helper/bingoSetup'
+import { MESSAGE_TYPE, getBingoMessage, isBingoMessage } from '../helper/config'
 
-const App = ({ playerName, playerId }) => {
+const App = ({ playerName }) => {
     const [socket, setSocket] = useState(null);
+    const [playerId, setPlayerId] = useState();
     const [messages, setMessages] = useState([]);
     const [isBingo, setIsBingo] = useState(false);
     const [bingo, setBingo] = useState(new BingoSetup())
     const [bingoPlayer, setBingoPlayer] = useState(playerName);
     const [otherPlay, setOtherPlay] = useState(false);
+    const [startGame, setStartGame] = useState(true);
+    const hasCurretRef = useRef(false);
+    const playerIdRef = useRef(playerId);
 
     useEffect(() => {
+
+        if (hasCurretRef.current) { return }
+        hasCurretRef.current = true; // To Avoid TWO Web Socket Connection
+
         // WEBSOCKET SERVER URL
         const ws = new WebSocket('ws://localhost:8080'); /* ws://localhost:8080 OR wss://devtunnel.ms */
 
@@ -21,52 +30,71 @@ const App = ({ playerName, playerId }) => {
         ws.onmessage = (event) => {
             console.log('Received:', event.data);
             const data = toJson(event.data)
-            if (Array.isArray(data)) {
-                setMessages(data);
-            } else {
-                if (data.isBingoPlay) {
-                    if (data.value) {
-                        setCrossSelectElement(data.value, false)
-                    }
-                    if (data.nextPlayerId == playerId) {
-                        setOtherPlay(false);
-                    }
-                }
-                if (data.isBingo) {
-                    setBingoPlayer(data.playerName);
-                    setIsBingo(true)
-                }
-            }
-        };
+            handleMessages(data);
+        }
 
         // ON CONNECTION OPEN
         ws.onopen = () => {
-            logInfo('WEBSOCKET CONNECTED ✔')
+            logInfo('WEBSOCKET CONNECTED ✅')
         };
 
         // ON CONNECTION CLOSE
         ws.onclose = () => {
-            logInfo('WEBSOCKET DISCONNECTED 👋')
+            logInfo('WEBSOCKET DISCONNECTED  (🔌) 👋')
         };
 
         setSocket(ws);
 
         console.log(bingo)
 
-        return () => { ws.close() };
+        return () => {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.close();
+            }
+        };
 
     }, []);
 
     useEffect(() => {
-        const isBingo = IsBingo(bingo);
-        setIsBingo(isBingo)
+        playerIdRef.current = playerId
+    }, [playerId])
+
+    useEffect(() => {
+        setIsBingo(IsBingo(bingo));
     }, [bingo])
 
     useEffect(() => {
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            socket.send(toStringify({ id: playerId, playerName: playerName, isBingo: isBingo }));
+        if (playerName === bingoPlayer && socket && socket.readyState === WebSocket.OPEN) {
+            socket.send(toStringify(isBingoMessage(playerId, playerName)));
         }
     }, [isBingo])
+
+    const handleMessages = (data) => {
+        switch (data.type) {
+            case MESSAGE_TYPE.BINGO_PLAY: {
+                const { value, nextPlayerId } = data.message;
+                if (value) {
+                    setCrossSelectElement(value, false)
+                }
+                if (nextPlayerId === playerIdRef.current) {
+                    setOtherPlay(false);
+                }
+                break;
+            }
+            case MESSAGE_TYPE.INIT: {
+                setPlayerId(data.message);
+                break;
+            }
+            case MESSAGE_TYPE.IS_BINGO: {
+                setBingoPlayer(data.playerName);
+                setIsBingo(true)
+                break;
+            }
+            default: {
+                Array.isArray(data) && (setMessages(data))
+            }
+        }
+    }
 
     const setCrossSelectElement = (crossElement, forDifferentPlayer = true) => {
         // const element = bingo.flat().find(e => e.value === crossElement);
@@ -81,9 +109,9 @@ const App = ({ playerName, playerId }) => {
                 )
             )
         );
-        if (forDifferentPlayer && socket && socket.readyState === WebSocket.OPEN) {
+        if (forDifferentPlayer && !isBingo && socket && socket.readyState === WebSocket.OPEN) {
             setOtherPlay(true)
-            socket.send(toStringify({ id: playerId, playerName: playerName, isBingoPlay: true, value: crossElement }));
+            socket.send(toStringify(getBingoMessage(playerId, playerName, crossElement)));
         }
     }
 
@@ -92,9 +120,9 @@ const App = ({ playerName, playerId }) => {
     return (
         <>
             <h2 style={{ ...style, color: 'green' }}>Player: {playerName}</h2>
-            {otherPlay && <h2 style={{ ...style, color: 'red' }}>Other Player Choosing...</h2>}
+            {otherPlay && !isBingo && <h2 style={{ ...style, color: 'red' }}>Other Player Choosing...</h2>}
             {isBingo && <h2 style={style}>{`${bingoPlayer} Win Bingo 🎉🎉`}</h2>}
-            <Bingo bingo={bingo} otherPlay={otherPlay} setCrossSelectElement={setCrossSelectElement} />
+            <Bingo bingo={bingo} otherPlay={otherPlay} startGame={startGame} setCrossSelectElement={setCrossSelectElement} />
             <Chat messages={messages} socket={socket} playerId={playerId} playerName={playerName} />
         </>
     );

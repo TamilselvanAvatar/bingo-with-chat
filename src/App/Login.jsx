@@ -4,11 +4,9 @@ import './main.css'
 
 export default () => {
     const [playerNme, setPlayerName] = useState('');
-    const [playerId, setPlayerId] = useState();
     const [login, setLogin] = useState(false);
 
     const setBingoBoard = () => {
-        setPlayerId(playerNme + (new Date()).getTime());
         setLogin(true);
     }
 
@@ -19,5 +17,5 @@ export default () => {
         </div>
     )
 
-    return !login ? logger : <BingoBoard playerId={playerId} playerName={playerNme} />;
+    return !login ? logger : <BingoBoard playerName={playerNme} />;
 }

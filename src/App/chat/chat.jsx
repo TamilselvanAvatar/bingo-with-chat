@@ -1,23 +1,17 @@
-import { toStringify, debounce } from '../../helper/util'
-import { useState, useCallback } from 'react';
+import { toStringify } from '../../helper/util'
+import { useState } from 'react';
+import { getChatMessage } from '../../helper/config'
 import ShowMessages from './showMessages';
 import './chat.css'
 const Chat = ({ socket, messages, playerName, playerId }) => {
     const [message, setMessage] = useState('');
 
     const sendMessage = () => {
-        const dateTime = new Date();
         if (socket && socket.readyState === WebSocket.OPEN) {
-            socket.send(toStringify({ id: playerId, dateTime: dateTime, playerName: playerName, isChat: true, message: message }));
+            socket.send(toStringify(getChatMessage(playerId, playerName, message)));
             setMessage('');
         }
     };
-    const handleSetMessage = useCallback(
-        debounce((value) => {
-            setMessage(value)
-        }, 1000),
-        []
-    );
     return (
         <div className='container'>
             <ShowMessages id={playerId} messages={messages} />
