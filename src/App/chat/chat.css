@@ -1,12 +1,18 @@
-.container {
+.chat-container {
     right: 0;
     bottom: 0;
-    width: 25%;
+    width: 75%;
     z-index: 1;
     margin: 10px;
     position: fixed;
     padding: 16px 16px;
     border-radius: 4px;
+}
+
+@media (min-width: 999px) {
+    .chat-container {
+        width: 25% !important;
+    }
 }
 
 .input {
@@ -61,10 +67,12 @@
     margin-left: auto;
     border-radius: 10px;
     background-color: #ECEFF1;
-    -ms-overflow-style: none;  /* IE and Edge */
+    -ms-overflow-style: none;
+    /* IE and Edge */
 }
 
 .chatbox::-webkit-scrollbar {
     /* Will remobe scroll bar */
-    display: none;  /* Chrome, Safari, Opera */ 
+    display: none;
+    /* Chrome, Safari, Opera */
 }

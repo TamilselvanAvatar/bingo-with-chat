@@ -13,7 +13,7 @@ const Chat = ({ socket, messages, playerName, playerId }) => {
         }
     };
     return (
-        <div className='container'>
+        <div className='chat-container'>
             <ShowMessages id={playerId} messages={messages} />
             <div className='message'>
                 <input className='input border' placeholder='Type Message' value={message} onChange={e => setMessage(e.target.value)} />

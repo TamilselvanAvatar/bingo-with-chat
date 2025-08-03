@@ -11,7 +11,7 @@ export default () => {
     }
 
     const logger = (
-        <div className='player-conainer' >
+        <div className='player-container' >
             <input className='input-player' placeholder='Type Player Name' onChange={e => setPlayerName(e.target.value)} />
             <button className='btn-next' disabled={playerNme.length == 0} onClick={setBingoBoard}>Next</button>
         </div>
