@@ -18,7 +18,9 @@ function getNextPlayer(currentPlayerId) {
 function handleMessage(jsonMessage, ws, client) { // CURRENT CLIENT == ws
   switch (jsonMessage.type) {
     case MESSAGE_TYPE.CHAT: {
-      messages.push(jsonMessage)
+      if (ws === client) {
+        messages.push(jsonMessage)
+      }
       client.send(toStringify(messages));
       break;
     }
