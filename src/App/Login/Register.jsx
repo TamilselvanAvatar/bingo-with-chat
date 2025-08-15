@@ -33,6 +33,18 @@ function UserForm() {
           onChange={handleChange} placeholder="Enter your email" required />
       </div>
 
+      <div className="input-group">
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password" name="password" value={formData.password}
+          onChange={handleChange} placeholder="Enter your password" required />
+      </div>
+
+      <div className="input-group">
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword}
+          onChange={handleChange} placeholder="Confirm password" required />
+      </div>
+
       <button type="submit">Submit</button>
     </form>
   );
