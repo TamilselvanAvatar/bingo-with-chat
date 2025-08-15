@@ -1,29 +1,27 @@
 import { useState } from "react";
 import './Mainpage.css';
+import Div from '../helperComponent/Div'
 import Image from '../images/bg1.jpg';
 import Register from './Register.jsx';
+import Login from "../Login";
 
-function Welcome(props) {
-    var [isVisible, setIsVisible] = useState(true);
-
-    const handleChange = () => {
-        setIsVisible(false);
-    }
+function Welcome() {
+    var [clicked, setClicked] = useState({ isLoginClicked: false, isRegisterClicked: false });
     return (
         <div className="full-screen">
             <div className="right-side">
                 <div className="button-group">
                     <h1>Hello,</h1>
-                    {isVisible && (
-                        <div className="button-group">
-                            <button className="auth-button">Login</button>
-                            <button className="auth-button" onClick={handleChange}>Register</button>
-                            <button className="auth-button color-check1">Register</button>
-                            <button className="auth-button color-check2">Register</button>
-                            <button className="auth-button color-check3">Register</button>
-                            <button className="auth-button color-check4">Register</button>
-                        </div>)}
-                    {!isVisible && ( <Register />)}
+                    <Div If={!clicked.isLoginClicked && !clicked.isRegisterClicked} className='button-group'>
+                        <button className="auth-button" onClick={() => { setClicked(pre => ({ ...pre, isLoginClicked: true })) }}>Login</button>
+                        <button className="auth-button" onClick={() => { setClicked(pre => ({ ...pre, isRegisterClicked: true })) }}>Register</button>
+                    </Div>
+                    <Div If={clicked.isRegisterClicked}>
+                        <Register />
+                    </Div>
+                    <Div If={clicked.isLoginClicked}>
+                        <Login />
+                    </Div>
                 </div>
             </div>
             <div className="left-side">
@@ -33,7 +31,7 @@ function Welcome(props) {
                     className="welcome-image"
                 />
             </div>
-        </div>
+        </div >
     )
 }
 
