@@ -1,29 +1,8 @@
-const Mongoose = require("mongoose"),
-	bcrypt = require("bcrypt"),
-	path = require("path"),
-	jwt = require("jsonwebtoken"),
-	CryptoJS = require("crypto-js"),
-	crypto = require('crypto')
-userDB = require("../models/user");
-const saltRounds = 10;
-const authKey = "123";
+/*
+const Mongoose = require("mongoose")
+const userDB = require("../server/APIserver/mongoSchema/user");
 
-exports.encrypt_password = (password) => {
-	console.log("common pass", password);
-	return bcrypt.hashSync(password, saltRounds);
-};
-
-exports.decrypt_password = (check_password, password) => {
-	return bcrypt.compareSync(check_password, password);
-};
-
-exports.createPayload = (key) => {
-	let payload = { secret: key };
-	let token = jwt.sign(payload, authKey, { expiresIn: 180 * 60 });
-	return token;
-};
-
-module.exports.verifyToken = async (req, res, next) => {
+export const verifyToken = async (req, res, next) => {
 	const bearerHeader = req.headers["authorization"];
 	console.log("bearerHeader----------->", bearerHeader);
 	if (typeof bearerHeader !== "undefined") {
@@ -49,8 +28,29 @@ module.exports.verifyToken = async (req, res, next) => {
 		return res.status(401).send({ status: 401, msg: "Token exipired" });
 	}
 };
+*/
 
-exports.check_regex = (userName, callback) => {
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+
+const saltRounds = process.env.SALTS;
+const authKey = process.env.AUTH_KEY;
+
+export const encrypt_password = (password) => {
+	return bcrypt.hashSync(password, saltRounds);
+};
+
+export const decrypt_password = (check_password, password) => {
+	return bcrypt.compareSync(check_password, password);
+};
+
+export const createPayload = (key) => {
+	const payload = { secret: key };
+	const token = jwt.sign(payload, authKey, { expiresIn: 180 * 60 });
+	return token;
+};
+
+export const check_regex = (userName, callback) => {
 	try {
 		if (userName.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
 			callback({ username: userName.toLowerCase() })

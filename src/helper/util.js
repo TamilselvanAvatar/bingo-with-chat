@@ -46,4 +46,8 @@ function isEmpty(value) {
     return !value && value.trim().length == 0
 }
 
-export { logInfo, toString, toJson, toStringify, debounce, shuffle, isEmpty };
+const STRING_REGEX = /^(?=.*[\w\d]).+/;
+
+const RESPONSE = (status, msg, code, error) => { status, msg, code, error }
+
+export { logInfo, toString, toJson, toStringify, debounce, shuffle, isEmpty, RESPONSE, STRING_REGEX };

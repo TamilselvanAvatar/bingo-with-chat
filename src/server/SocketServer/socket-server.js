@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 const crypto = require('crypto');
 const { logInfo, toJson, toStringify } = require('../../helper/util');
 const { MESSAGE_TYPE, initializePlayer } = require('../../helper/config');
-const wss = new WebSocket.Server({ port: 8080, host: '0.0.0.0' });
+const wss = new WebSocket.Server({ port: WEB_SOCKET_SERVER_PORT, host: process.env.WEB_SOCKET_SERVER_HOST });
 const clientSocket = new Map(); //EACH CLIENT IS A PLAYER
 const messages = [];
 

@@ -24,7 +24,7 @@ const App = ({ playerName }) => {
         hasCurretRef.current = true; // To Avoid TWO Web Socket Connection
 
         // WEBSOCKET SERVER URL
-        const ws = new WebSocket('ws://localhost:8080'); /* ws://localhost:8080 OR wss://devtunnel.ms */
+        const ws = new WebSocket(process.env.WEB_SOCKET_CLIENT_URL); /* ws://localhost:8080 OR wss://devtunnel.ms */
 
         // ON RECEIVING MESSAGE
         ws.onmessage = (event) => {

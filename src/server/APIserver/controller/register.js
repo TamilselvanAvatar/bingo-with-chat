@@ -1,16 +1,17 @@
-const Mongoose = require("mongoose"),
-	CryptoJS = require("crypto-js"),
-	validator = require("node-validator");
+const Mongoose = require('mongoose');
+const validator = require('node-validator');
+const userDB = Mongoose.model('user');
+const otpDB = Mongoose.model('otp');
+const bcrypt = require('bcrypt');
 const otpGenerator = require('otp-generator');
-const moment = require('moment');
-const userDB = Mongoose.model("user");
-const otpDB = Mongoose.model("otp");
+const USER = require('../constants/userModal');
+const { STRING_REGEX, RESPONSE } = require('../../../helper/util');
+const { ERROR_CODE, SUCCESS_CODE } = require('../../../helper/generalConstants');
 // const Vonage = require('@vonage/server-sdk');
 // const vonage = new Vonage({
 // 	apiKey: "7b322514",
 // 	apiSecret: "7Lqw4Op6B4RDRRiG"
 // })
-const bcrypt = require('bcrypt');
 
 module.exports = {
 	signUp: async function (req, res) {
@@ -19,7 +20,7 @@ module.exports = {
 			const users = await otpDB.findOne({
 				number: req.body.number
 			})
-			if (users) return res.json({status : 400,msg:"OTP already sent to the number. Please try again after 5min"})
+			if (users) return res.json({ status: 400, msg: "OTP already sent to the number. Please try again after 5min" })
 			const OTP = otpGenerator.generate(6, {
 				digits: true, alphabets: false, upperCase: false, specialChars: false
 			});
@@ -116,62 +117,36 @@ module.exports = {
 	},
 	userSignup: async function (req, res) {
 		try {
-			let req_data = req.body;
-			var check = validator
+			const req_data = req.body;
+			const check = validator
 				.isObject()
-				.withOptional(
-					"email",
-					validator.isString({ regex: /.+@.+\..+/ })
-				)
-				.withRequired(
-					"name",
-					validator.isString({ regex: /^(?=.*[\w\d]).+/ })
-				)
-				.withRequired(
-					"phone",
-					validator.isString({ regex: /^[6-9]\d{9}$/ })
-				)
-				.withRequired(
-					"area",
-					validator.isString({ regex: /^(?=.*[\w\d]).+/ })
-				)
-				.withRequired(
-					"pincode",
-					validator.isString({ regex: /^(?=.*[\w\d]).+/ })
-				)
-				.withRequired(
-					"address",
-					validator.isString({ regex: /^(?=.*[\w\d]).+/ })
-				)
-				.withOptional(
-					"location",
-					validator.isString({ regex: /^(?=.*[\w\d]).+/ })
-				);
-			validator.run(check, req_data, function (errCount, errs) {
+				.withRequired(USER.USER_NAME, validator.isString({ regex: STRING_REGEX }))
+				.withRequired(USER.EMAIL, validator.isString({ regex: /.*@.{1,}\..{1,}/ }))
+				.withRequired(USER.PASSWORD, validator.isString({ regex: STRING_REGEX }));
+
+			validator.run(check, req_data, async function (errCount, errs) {
+				const ERROR_RESPONSE = RESPONSE(400, 'Invalid Parameters', ERROR_CODE.INVALID_DATA, errs);
 				if (errCount > 0) {
-					return res.json({
-						status: 400,
-						msg: "Invalid parameters",
-						error: errs,
-					});
+					return res.json(ERROR_RESPONSE);
 				}
-				userDB.create(req_data, (err, userRec) => {
-					if (err) {
-						if (err.code == 11000) {
-							return res.json({ status: 400, msg: "Email already exists" });
-						}
-						return res.json({ status: 400, msg: "Something went wrong" });
-					} else if (!userRec) {
-						return res.json({ status: 500, msg: "Something went wrong" });
+				userDB.create(req_data).then(
+					(response) => {
+						console.log(response.toJSON())
+						return res.json(RESPONSE(200, 'User Inserted Succesfully', SUCCESS_CODE.LOGIN_SUCCESS))
+					},
+					(err) => {
+						console.error(err);
+						const ERROR_RESPONSE = RESPONSE(500, 'Something went wrong', ERROR_CODE.UNKNOWN_ERROR, err);
+						return res.json(ERROR_RESPONSE);
 					}
-					return res.json({ status: 201, msg: "User Added successfully" });
-				});
+				)
 
 			});
-		}catch (e) {
-			console.log(e);
-			return res.json({ status: 500, msg: "Something went wrong", call: e });
+		} catch (err) {
+			console.error(err);
+			const ERROR_RESPONSE = RESPONSE(500, 'Something went wrong', ERROR_CODE.UNKNOWN_ERROR, err);
+			return res.json(ERROR_RESPONSE);
 		}
 	},
-	
+
 };

@@ -1,9 +1,8 @@
 require('dotenv').config();
-const db = require("./models/database"),
-    config = require("./Nodedetails/config"),
-    index = require("./routes/index"),
-    port = config.port;
+require("./mongoSchema/mongo-connection");
 
+const routers = require("./routes/index");
+const port = process.env.EXPRESS_SERVER_PORT;
 const express = require("express"),
     path = require("path"),
     // cookieParser = require("cookie-parser"),
@@ -15,7 +14,7 @@ const express = require("express"),
     fs = require("fs"),
     morgan = require("morgan"),
     // fileupload = require("express-fileupload");
-app = express();
+    app = express();
 
 morgan.token("host", function (req) {
     return req.hostname;
@@ -66,15 +65,15 @@ if (process.env.NODE_ENV == 'staging' || process.env.NODE_ENV == 'testing' || pr
     }
     app.use(exception_routes(['/user'], cors(corsOptions)))
     if (process.env.NODE_ENV == 'production') {
-        app.use("/user", index);
+        app.use("/user", routers);
     }
     else {
-        app.use("/api", index);
+        app.use("/api", routers);
     }
 }
 else {
     app.use(cors());
-    app.use("/api", index);
+    app.use("/api", routers);
 }
 
 if (process.env.TLS_ENABLE == "true") {
@@ -99,8 +98,8 @@ if (process.env.TLS_ENABLE == "true") {
     module.exports = app; // for testing purpose
 }
 
-app.get('/bingo', (req, res) => {
-    return res.json({ status: 200, msg: "Welcome to Bingo app" });
+app.get('/bingo', () => {
+    return res.json({ status: 200, msg: "Welcome to Bingo app" }); //LIKE A HEALTH CHECK
 })
-app.use("/user", index);
+app.use("/user", routers);
 

@@ -17,7 +17,7 @@
             "type": "node",
             "request": "launch",
             "name": "DEBUG API SERVER",
-            "program": "${workspaceFolder}/src/server/APIserver/server.js",
+            "program": "${workspaceFolder}/src/server/APIserver/api-server.js",
             "env": {
                 "PORT": "8081"
             },

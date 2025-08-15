@@ -1,67 +1,52 @@
-const Mongoose = require("mongoose"),
-CryptoJS = require("crypto-js"),
-validator = require("node-validator");
-// const userDB = Mongoose.model("user"),
-common = require("../helper/common");
+const validator = require('node-validator');
+const common = require('../../../helper/common');
+const USER = require('../constants/userModal')
+const userDB = require('../mongoSchema/user');
+const { RESPONSE, STRING_REGEX } = require('../../../helper/util');
+const { ERROR_CODE } = require('../../../helper/generalConstants');
+const { SUCCESS_CODE } = require('../../../helper/generalConstants');
+
 module.exports = {
 	login: function (req, res) {
 		try {
-			var find_data = req.body;
-			var check = validator
-			.isObject()
-			.withRequired(
-				"username",
-				validator.isString({ regex: /^(?=.*[\w\d]).+/ })
-				)
-			.withRequired(
-				"password",
-				validator.isString({ regex: /^(?=.*[\w\d]).+/ })
-				);
-			validator.run(check, find_data, function (errCount, errs) {
+			const userInfo = req.body;
+			const check = validator
+				.isObject()
+				.withRequired(USER.USER_NAME, validator.isString({ regex: STRING_REGEX }))
+				.withRequired(USER.PASSWORD, validator.isString({ regex: STRING_REGEX }));
+
+			validator.run(check, userInfo, function (errCount, errs) {
+				const ERROR_RESPONSE = RESPONSE(400, 'Invalid Parameters', ERROR_CODE.INVALID_DATA, errs);
 				if (errCount > 0) {
-					return res.json({
-						status: 400,
-						msg: "Invalid parameters",
-						error: errs,
-					});
+					return res.json(ERROR_RESPONSE);
 				}
-				common.check_regex(find_data.username, (match) => {
-					console.log("username match  ------>", match);
-					if (!match) {
-						return res.json({
-							status: 400,
-							msg: "Invalid parameters"
-						});
+				userDB.findOne({ '$or': [{ [USER.USER_NAME]: userInfo[USER.USER_NAME] }, { [USER.EMAIL]: userInfo[USER.EMAIL] }] }, (err, userData) => {
+					const ERROR_RESPONSE = RESPONSE(400, 'Invalid User/Password', '', err)
+					if (!userData) {
+						ERROR_RESPONSE.code = ERROR_CODE.INVALID_USER_NAME;
+						return res.json(ERROR_RESPONSE);
 					}
-					userDB.findOne(match, (err, userData) => {
-						var errMsg = match.email ? "Invalid Email or password" : "";
-						if (!userData) {
-							return res.json({
-								status: 400,
-								msg: errMsg,
-							});
-						}
-						var details = userData;
-						var checkPass = find_data.password ? common.decrypt_password(find_data.password, details.password) : '';
-						console.log("checkPass----------->", checkPass);
-						if (checkPass == false) { return res.json({ status: 400, msg: "Invalid password" }); }
-						var JWTtoken = common.createPayload({
-							id: details._id,
-							name: details.name,
-							email: details.username,
-							phone: details.phone,
-						});
-						return res.json({
-							status: 200,
-							msg: "Logged in successfully",
-							token: JWTtoken,
-						});
+					const checkPassword = common.decrypt_password(userInfo[USER.PASSWORD], userData[USER.PASSWORD]);
+					if (!checkPassword) {
+						ERROR_RESPONSE.code = ERROR_CODE.INVALID_PASSWORD;
+						return res.json(ERROR_RESPONSE);
+					}
+					const JWTtoken = common.createPayload({
+						id: userData._id,
+						[USER.USER_NAME]: userData[USER.USER_NAME],
+						[USER.EMAIL]: userData[USER.EMAIL],
+						[USER.PASSWORD]: userData[USER.PASSWORD],
 					});
+					const SUCESS_RESPONSE = RESPONSE(200, 'Logged in successfully', SUCCESS_CODE.LOGIN_SUCCESS)
+					SUCESS_RESPONSE.token = JWTtoken;
+					return res.json(SUCESS_RESPONSE);
+
 				})
 			});
-		} catch (e) {
-			console.log(e);
-			return res.json({ status: 500, msg: "Something went wrong", call: e });
+		} catch (err) {
+			console.error(err);
+			const ERROR_RESPONSE = RESPONSE(500, 'Something went wrong', ERROR_CODE.UNKNOWN_ERROR, err)
+			return res.json(ERROR_RESPONSE);
 		}
-	},
+	}
 };

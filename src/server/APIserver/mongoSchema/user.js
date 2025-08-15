@@ -1,21 +1,22 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const USER = require('../constants/userModal');
+const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
-    name: {
+    [USER.USER_NAME]: {
       type: String,
       required: true,
     },
-    email: {
+    [USER.EMAIL]: {
       type: String,
       lowercase: true,
       match: /.+@.+\..+/,
     },
-    password: {
+    [USER.PASSWORD]: {
       type: String,
       required: true,
     },
-    status: {
+    [USER.STATUS]: {
       type: Number,
       default: 0,
       enum: [0, 1],
@@ -25,4 +26,4 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("user", userSchema, "user");
+module.exports = mongoose.model('user', userSchema, 'user');
