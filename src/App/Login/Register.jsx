@@ -17,7 +17,6 @@ function UserForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // You can add form validation or API calls here
   };
 
   return (
