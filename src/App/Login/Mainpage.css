@@ -13,8 +13,9 @@ body {
 }
 
 .left-side {
-    background-color: #f5f5f5; 
+    background-color: #f5f5f5;
 }
+
 .welcome-image {
     width: 100%;
     height: 100%;
@@ -40,26 +41,65 @@ body {
     cursor: pointer;
     width: 150px;
     border: none;
-    background-color: #0056b3;
+    background-color: #7c58aa;
     color: white;
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
+
 .color-check1 {
     background-color: #2c3639;
 }
+
 .color-check2 {
     background-color: #3f4e4f;
 }
+
 .color-check3 {
     background-color: #A27B5B;
 }
+
 .color-check4 {
     background-color: #DCD7c9;
 }
 
+.color-check5 {
+    background-color: #413f8a;
+}
+
+.color-check6 {
+    background-color: #7c58aa;
+}
+
+.color-check7 {
+    background-color: #d277bd;
+}
+
+.color-check8 {
+    background-color: #fec2b5;
+}
+
+.input-group input {
+    background: linear-gradient(175deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    --webkit-backdrop-filter:blur(50px)
+    backdrop-filter: blur(10px);
+    margin: 5px;
+    padding: 8px 4px;
+    border-radius: 8px;
+    text-align: center;
+    font-style: italic;
+    width: 90%;
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.17);
+}
+
+.input-group input:focus {
+    background-color: #fec2b5;
+    border: 0px solid #7c58aa;
+}
+
+
 .auth-button:hover {
-    background-color: #0056b3;
+    background-color: #000000;
 }
 
 .form-container {
