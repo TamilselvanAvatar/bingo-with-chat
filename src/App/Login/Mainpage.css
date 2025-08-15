@@ -83,6 +83,10 @@ body {
     background-color: #000000;
 }
 
+.error {
+    color: red;
+}
+
 .form-container {
     width: 300px;
     display: flex;
@@ -116,4 +120,5 @@ body {
   button:hover {
     background-color: #0056b3;
   }
+
   

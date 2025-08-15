@@ -6,6 +6,7 @@ function UserForm() {
     email: '',
     password: ''
   });
+  const [error,setError] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,8 +20,9 @@ function UserForm() {
     e.preventDefault();
     if(formData.password !== formData.confirmPassword){
         console.log('Passoword dont match');
+        setError(true);
     } else {
-    console.log('Form submitted:', formData);
+        console.log('Form submitted:', formData);
     }
   };
 
@@ -43,7 +45,7 @@ function UserForm() {
         <input type="password" id="password" name="password" value={formData.password}
           onChange={handleChange} placeholder="Enter your password" required />
       </div>
-
+      {error && <div className='error'>Confirm Password does not match</div>}
       <div className="input-group">
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword}
