@@ -79,25 +79,6 @@ body {
     background-color: #fec2b5;
 }
 
-.input-group input {
-    background: linear-gradient(175deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    --webkit-backdrop-filter:blur(50px)
-    backdrop-filter: blur(10px);
-    margin: 5px;
-    padding: 8px 4px;
-    border-radius: 8px;
-    text-align: center;
-    font-style: italic;
-    width: 90%;
-    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.17);
-}
-
-.input-group input:focus {
-    background-color: #fec2b5;
-    border: 0px solid #7c58aa;
-}
-
-
 .auth-button:hover {
     background-color: #000000;
 }

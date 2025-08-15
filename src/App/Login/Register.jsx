@@ -4,6 +4,7 @@ function UserForm() {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -16,7 +17,11 @@ function UserForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(formData.password !== formData.confirmPassword){
+        console.log('Passoword dont match');
+    } else {
     console.log('Form submitted:', formData);
+    }
   };
 
   return (
