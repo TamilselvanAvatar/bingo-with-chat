@@ -42,4 +42,8 @@ function shuffle(list) {
     }
 }
 
-export { logInfo, toString, toJson, toStringify, debounce, shuffle };
+function isEmpty(value) {
+    return !value && value.trim().length == 0
+}
+
+export { logInfo, toString, toJson, toStringify, debounce, shuffle, isEmpty };

@@ -3,7 +3,7 @@ import './Mainpage.css';
 import Div from '../helperComponent/Div'
 import Image from '../images/bg1.jpg';
 import Register from './Register.jsx';
-import Login from "../Login";
+import Login from "./Login.jsx";
 
 function Welcome() {
     var [clicked, setClicked] = useState({ isLogin: false, isRegister: false });
