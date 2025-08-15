@@ -1,7 +1,10 @@
 .full-screen {
     height: 100vh;
     display: flex;
-} 
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+  }
 .left-side, .right-side {
     flex: 1;
     display: flex;
@@ -58,3 +61,38 @@
 .auth-button:hover {
     background-color: #0056b3;
 }
+
+.form-container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #0f0f10;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
