@@ -12,7 +12,8 @@ export default () => {
 
     const onLoginSubmit = (e) => {
         e.preventDefault();
-        setLoginSubmitted(true)
+        setLoginSubmitted(true);
+        setInvalid(pre => ({ ...pre, userName: true }))
     }
 
     return (
@@ -25,6 +26,7 @@ export default () => {
                 <input required placeholder='Enter the Password' type='password' onChange={e => { setLoginInfo(pre => ({ ...pre, password: e.target.value })) }} />
             </div>
             <button className='button'>Login</button>
+            <Div If={invalid.password || invalid.userName}><a>Forgot Password</a></Div>
         </form>
     );
 }
