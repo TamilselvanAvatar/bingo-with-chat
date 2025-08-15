@@ -5,7 +5,7 @@ import './main.css'
 export default () => {
     const [playerNme, setPlayerName] = useState('');
     const [login, setLogin] = useState(false);
-
+    const [loginInfo, setLoginInfo] = useState({ userName: '', password: '' })
     const setBingoBoard = () => {
         setLogin(true);
     }
