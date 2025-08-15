@@ -6,20 +6,20 @@ import Register from './Register.jsx';
 import Login from "../Login";
 
 function Welcome() {
-    var [clicked, setClicked] = useState({ isLoginClicked: false, isRegisterClicked: false });
+    var [clicked, setClicked] = useState({ isLogin: false, isRegister: false });
     return (
         <div className="full-screen">
             <div className="right-side">
                 <div className="button-group">
                     <h1>Hello,</h1>
-                    <Div If={!clicked.isLoginClicked && !clicked.isRegisterClicked} className='button-group'>
-                        <button className="auth-button" onClick={() => { setClicked(pre => ({ ...pre, isLoginClicked: true })) }}>Login</button>
-                        <button className="auth-button" onClick={() => { setClicked(pre => ({ ...pre, isRegisterClicked: true })) }}>Register</button>
+                    <Div If={!clicked.isLogin && !clicked.isRegister} className='button-group'>
+                        <button className="auth-button" onClick={() => { setClicked(pre => ({ ...pre, isLogin: true })) }}>Login</button>
+                        <button className="auth-button" onClick={() => { setClicked(pre => ({ ...pre, isRegister: true })) }}>Register</button>
                     </Div>
-                    <Div If={clicked.isRegisterClicked}>
+                    <Div If={clicked.isRegister}>
                         <Register />
                     </Div>
-                    <Div If={clicked.isLoginClicked}>
+                    <Div If={clicked.isLogin}>
                         <Login />
                     </Div>
                 </div>
