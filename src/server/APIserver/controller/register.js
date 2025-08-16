@@ -5,8 +5,9 @@ const otpDB = Mongoose.model('otp');
 const bcrypt = require('bcrypt');
 const otpGenerator = require('otp-generator');
 const USER = require('../constants/userModal');
-const { STRING_REGEX, RESPONSE } = require('../../../helper/util');
-const { ERROR_CODE, SUCCESS_CODE } = require('../../../helper/generalConstants');
+const objUser = require('../controller/user.js');
+const { STRING_REGEX } = require('../../../helper/util');
+const { RESPONSES } = require('../../../helper/generalConstants');
 // const Vonage = require('@vonage/server-sdk');
 // const vonage = new Vonage({
 // 	apiKey: "7b322514",
@@ -125,27 +126,29 @@ module.exports = {
 				.withRequired(USER.PASSWORD, validator.isString({ regex: STRING_REGEX }));
 
 			validator.run(check, req_data, async function (errCount, errs) {
-				const ERROR_RESPONSE = RESPONSE(400, 'Invalid Parameters', ERROR_CODE.INVALID_DATA, errs);
 				if (errCount > 0) {
-					return res.json(ERROR_RESPONSE);
+					return res.json(RESPONSES.INVALID_DATA(errs));
 				}
-				userDB.create(req_data).then(
-					(response) => {
-						console.log(response.toJSON())
-						return res.json(RESPONSE(200, 'User Inserted Succesfully', SUCCESS_CODE.LOGIN_SUCCESS))
-					},
-					(err) => {
-						console.error(err);
-						const ERROR_RESPONSE = RESPONSE(500, 'Something went wrong', ERROR_CODE.UNKNOWN_ERROR, err);
-						return res.json(ERROR_RESPONSE);
+				try {
+					const checkUserExist = await objUser.checkAvailabilityOfUser(req_data);
+					if (checkUserExist) {
+						return res.json(RESPONSES.USER_ALREADY_EXIST());
 					}
-				)
+					const response = await userDB.create(req_data);
+					const dbData = response.toJSON();
+					const SUCCESS_RESPONSE = RESPONSES.GENERAL_SUCCESS('User Inserted Succesfully');
+					SUCCESS_RESPONSE.data = dbData;
+					return res.json(SUCCESS_RESPONSE)
 
+				} catch (err) {
+					console.error(err);
+					return res.json(RESPONSES.UNKNOWN_ERROR(err));
+
+				}
 			});
 		} catch (err) {
 			console.error(err);
-			const ERROR_RESPONSE = RESPONSE(500, 'Something went wrong', ERROR_CODE.UNKNOWN_ERROR, err);
-			return res.json(ERROR_RESPONSE);
+			return res.json(RESPONSES.UNKNOWN_ERROR(err));
 		}
 	},
 
