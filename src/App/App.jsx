@@ -6,6 +6,8 @@ import BingoSetup from '../helper/bingoSetup'
 import { IsBingo } from '../helper/bingoSetup'
 import { MESSAGE_TYPE, getBingoMessage, isBingoMessage } from '../helper/config'
 
+const WEB_SOCKET_CLIENT_URL = import.meta.env.VITE_WEB_SOCKET_CLIENT_URL;
+
 const App = ({ playerName }) => {
     const [socket, setSocket] = useState(null);
     const [playerId, setPlayerId] = useState();
@@ -24,7 +26,7 @@ const App = ({ playerName }) => {
         hasCurretRef.current = true; // To Avoid TWO Web Socket Connection
 
         // WEBSOCKET SERVER URL
-        const ws = new WebSocket(process.env.WEB_SOCKET_CLIENT_URL); /* ws://localhost:8080 OR wss://devtunnel.ms */
+        const ws = new WebSocket(WEB_SOCKET_CLIENT_URL); /* ws://localhost:8080 OR wss://devtunnel.ms */
 
         // ON RECEIVING MESSAGE
         ws.onmessage = (event) => {

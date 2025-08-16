@@ -6,7 +6,7 @@ const { STRING_REGEX } = require('../../../helper/util');
 const { RESPONSES } = require('../../../helper/generalConstants');
 
 const getUser = async (userInfo) => {
-	const response = await userDB.findOne({ '$or': [{ [USER.USER_NAME]: userInfo[USER.USER_NAME] }, { [USER.EMAIL]: userInfo[USER.EMAIL] }] });
+	const response = await userDB.findOne({ '$or': [{ [USER.USER_NAME]: userInfo[USER.USER_NAME] }, { [USER.EMAIL]: { '$in': [userInfo[USER.USER_NAME], userInfo[USER.EMAIL]] } }] });
 	if (response) {
 		return response.toJSON();
 	}
@@ -23,15 +23,15 @@ const login = async (req, res) => {
 
 		validator.run(check, userInfo, async function (errCount, err) {
 			if (errCount > 0) {
-				return res.json(RESPONSES.INVALID_DATA(err));
+				return res.status(400).json(RESPONSES.INVALID_DATA(err));
 			}
 			const userData = await getUser(userInfo);
 			if (!userData) {
-				return res.json(RESPONSES.INVALID_USER());
+				return res.status(400).json(RESPONSES.INVALID_USER());
 			}
 			const checkPassword = common.decrypt_password(userInfo[USER.PASSWORD], userData[USER.PASSWORD]);
 			if (!checkPassword) {
-				return res.json(RESPONSES.INVALID_PASSWORD());
+				return res.status(400).json(RESPONSES.INVALID_PASSWORD());
 			}
 			const JWTtoken = common.createPayload({
 				id: userData._id,
@@ -41,11 +41,11 @@ const login = async (req, res) => {
 			});
 			const SUCESS_RESPONSE = RESPONSES.LOGIN_SUCCESS('Logged in successfully')
 			SUCESS_RESPONSE.token = JWTtoken;
-			return res.json(SUCESS_RESPONSE);
+			return res.status(200).json(SUCESS_RESPONSE);
 		});
 	} catch (err) {
 		console.error(err);
-		return res.json(RESPONSES.UNKNOWN_ERROR(err));
+		return res.status(500).json(RESPONSES.UNKNOWN_ERROR(err));
 	}
 }
 

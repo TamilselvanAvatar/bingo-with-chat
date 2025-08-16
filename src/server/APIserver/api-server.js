@@ -99,7 +99,7 @@ if (process.env.TLS_ENABLE == "true") {
 }
 
 app.get('/bingo', () => {
-    return res.json({ status: 200, msg: "Welcome to Bingo app" }); //LIKE A HEALTH CHECK
+    return res.json({ status: 200, msg: 'Welcome to Bingo app' }); //LIKE A HEALTH CHECK
 })
-app.use("/user", routers);
+app.use('/bingo/user', routers);
 

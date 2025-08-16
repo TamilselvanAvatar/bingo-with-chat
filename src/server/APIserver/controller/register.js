@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const otpGenerator = require('otp-generator');
 const USER = require('../constants/userModal');
 const objUser = require('../controller/user.js');
+const common = require('../../../helper/common');
 const { STRING_REGEX } = require('../../../helper/util');
 const { RESPONSES } = require('../../../helper/generalConstants');
 // const Vonage = require('@vonage/server-sdk');
@@ -127,28 +128,31 @@ module.exports = {
 
 			validator.run(check, req_data, async function (errCount, errs) {
 				if (errCount > 0) {
-					return res.json(RESPONSES.INVALID_DATA(errs));
+					return res.status(400).json(RESPONSES.INVALID_DATA(errs));
 				}
 				try {
 					const checkUserExist = await objUser.checkAvailabilityOfUser(req_data);
 					if (checkUserExist) {
-						return res.json(RESPONSES.USER_ALREADY_EXIST());
+						return res.status(400).json(RESPONSES.USER_ALREADY_EXIST());
+					}
+					if (!req_data.isEncrypted) {
+						req_data[USER.PASSWORD] = common.encrypt_password(req_data[USER.PASSWORD])
 					}
 					const response = await userDB.create(req_data);
 					const dbData = response.toJSON();
 					const SUCCESS_RESPONSE = RESPONSES.GENERAL_SUCCESS('User Inserted Succesfully');
 					SUCCESS_RESPONSE.data = dbData;
-					return res.json(SUCCESS_RESPONSE)
+					return res.status(200).json(SUCCESS_RESPONSE)
 
 				} catch (err) {
 					console.error(err);
-					return res.json(RESPONSES.UNKNOWN_ERROR(err));
+					return res.status(500).json(RESPONSES.UNKNOWN_ERROR(err));
 
 				}
 			});
 		} catch (err) {
 			console.error(err);
-			return res.json(RESPONSES.UNKNOWN_ERROR(err));
+			return res.status(500).json(RESPONSES.UNKNOWN_ERROR(err));
 		}
 	},
 

@@ -33,11 +33,13 @@ export const verifyToken = async (req, res, next) => {
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-const saltRounds = process.env.SALTS;
+const saltRounds = Number(process.env.SALTS);
 const authKey = process.env.AUTH_KEY;
 
+const salt = bcrypt.genSaltSync(saltRounds);
+
 export const encrypt_password = (password) => {
-	return bcrypt.hashSync(password, saltRounds);
+	return bcrypt.hashSync(password, salt);
 };
 
 export const decrypt_password = (check_password, password) => {
