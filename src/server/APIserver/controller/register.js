@@ -133,7 +133,7 @@ module.exports = {
 				try {
 					const checkUserExist = await objUser.checkAvailabilityOfUser(req_data);
 					if (checkUserExist) {
-						return res.status(400).json(RESPONSES.USER_ALREADY_EXIST());
+						return res.status(409).json(RESPONSES.USER_ALREADY_EXIST());
 					}
 					if (!req_data.isEncrypted) {
 						req_data[USER.PASSWORD] = common.encrypt_password(req_data[USER.PASSWORD])

@@ -7,7 +7,6 @@ const formMessage = (playerId, playerName, message) => {
     };
 }
 
-
 export const MESSAGE_TYPE = {
     INIT: 'INIT',
     CHAT: 'CHAT',

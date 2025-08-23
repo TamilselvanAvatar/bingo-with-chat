@@ -98,7 +98,7 @@ if (process.env.TLS_ENABLE == "true") {
     module.exports = app; // for testing purpose
 }
 
-app.get('/bingo', () => {
+app.get('/bingo', (req,res) => {
     return res.json({ status: 200, msg: 'Welcome to Bingo app' }); //LIKE A HEALTH CHECK
 })
 app.use('/bingo/user', routers);
