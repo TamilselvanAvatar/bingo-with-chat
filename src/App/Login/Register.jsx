@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Mainpage.css';
 import axios from 'axios'
-import {ERR_RESPONSE} from '../helperComponent/constant';
+import { ERROR_CODE } from '../../helper/generalConstants';
 function UserForm() {
   const [formData, setFormData] = useState({
     userName: '',
@@ -23,16 +23,16 @@ function UserForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password === confirmPassword) {
-      setError({error : false});
+      setError({ error: false });
       const registerCall = axios.post(`http://localhost:9000/bingo/user/register`, formData)
       registerCall.then(res => {
         var data = res;
       }).catch(err => {
-        if(err.response.data.code === ERR_RESPONSE.USER_ALREADY_EXIST)
-          setError({apiError: true});
+        if (err.response.data.code === ERROR_CODE.USER_ALREADY_EXIST)
+          setError({ apiError: true });
       })
     } else {
-      setError({error : true});
+      setError({ error: true });
     }
   };
 

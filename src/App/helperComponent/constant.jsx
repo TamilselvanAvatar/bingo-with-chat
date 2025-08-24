@@ -1,3 +1,0 @@
-export const ERR_RESPONSE = {
-    USER_ALREADY_EXIST : "USER_ALREADY_EXIST"
-}
