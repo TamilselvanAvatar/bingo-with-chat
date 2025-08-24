@@ -1,7 +1,7 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Welcome from './Login/Mainpage'
-import { Dashboard } from './Dashboard/dashboard'
-import { UserProvider } from './helperComponent/UserContext'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Welcome from './Login/Mainpage';
+import Dashboard from './Dashboard/dashboard';
+import { UserProvider } from './components/UserContext';
 
 export default () => {
     return (

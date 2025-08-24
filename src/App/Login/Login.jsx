@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import './Mainpage.css'
-import Div from '../helperComponent/Div';
+import Div from '../components/Div';
 import { fetchUser } from '../services/UserService';
 import { ERROR_CODE } from '../../helper/generalConstants';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../helperComponent/UserContext';
+import { UserContext } from '../components/UserContext';
 import Dashboard from '../Dashboard/dashboard';
 
 export default () => {
