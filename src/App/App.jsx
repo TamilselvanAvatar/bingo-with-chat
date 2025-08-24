@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Welcome from './Login/Mainpage'
-import { Dashboard } from './dashboard/Dashboard'
+import { Dashboard } from './Dashboard/dashboard'
 import { UserProvider } from './helperComponent/UserContext'
 
 export default () => {

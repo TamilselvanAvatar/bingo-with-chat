@@ -1,0 +1,58 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: wheat;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.inner-container{
+    width: 99%;
+    height: 97%;
+    border-radius: 20px;
+    background-color: rgb(4, 20, 74);
+    padding: 5px;
+    display: flex;
+}
+
+.side-nav{
+    width: 10%;
+    height: 95%;
+    border-radius: 20px;
+    background-color: white;
+    padding: 5px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icons{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.icons-align{
+    padding: 30px;
+}
+
+.dashboard-body{
+    width: calc(100% - 10%);
+    height: 95%;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import './Mainpage.css';
-import Div from '../helperComponent/Div'
+import Div from '../components/Div.jsx'
 import Image from '../images/bg1.jpg';
 import Register from './Register.jsx';
 import Login from "./Login.jsx";
