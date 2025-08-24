@@ -1,4 +1,4 @@
-export const RESPONSE = (status, msg, code, error) => ({ status, msg, code, error })
+export const RESPONSE = (status, msg, code, error, data) => ({ status, msg, code, error, data })
 
 export const ERROR_CODE = {
     INVALID_DATA: 'INVALID_DATA',
@@ -13,6 +13,10 @@ export const SUCCESS_CODE = {
     GENERAL_SUCCESS: 'GENERAL_SUCCESS'
 }
 
+export const DASHBOARD = {
+    LEADER_BORAD: 'LEADER_BOARD'
+}
+
 export const RESPONSES = {
     UNKNOWN_ERROR: (err) => (RESPONSE(500, 'Something went wrong', ERROR_CODE.UNKNOWN_ERROR, err)),
     LOGIN_SUCCESS: (msg) => (RESPONSE(200, msg, SUCCESS_CODE.LOGIN_SUCCESS)),
@@ -21,4 +25,5 @@ export const RESPONSES = {
     INVALID_USER: () => (RESPONSE(400, 'Invalid User/Password', ERROR_CODE.INVALID_USER_NAME)),
     INVALID_PASSWORD: () => (RESPONSE(400, 'Invalid User/Password', ERROR_CODE.INVALID_PASSWORD)),
     USER_ALREADY_EXIST: () => (RESPONSE(400, 'User Already Exist', ERROR_CODE.USER_ALREADY_EXIST)),
+    SUCCESS_REPONSE: (data) => (RESPONSE(200, 'Success', 'SUCCESS', null, data))
 }

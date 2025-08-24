@@ -13,6 +13,10 @@ const getUser = async (userInfo) => {
 	return response;
 }
 
+const setUserToken = async (userInfo, token) => {
+	await userDB.findOneAndUpdate({ [USER.USER_NAME]: userInfo[USER.USER_NAME] }, { [USER.TOKEN]: token })
+}
+
 const login = async (req, res) => {
 	try {
 		const userInfo = req.body;
@@ -42,6 +46,7 @@ const login = async (req, res) => {
 			const SUCESS_RESPONSE = RESPONSES.LOGIN_SUCCESS('Logged in successfully')
 			SUCESS_RESPONSE.token = JWTtoken;
 			SUCESS_RESPONSE.USER_ID = userData._id;
+			setUserToken(userData, JWTtoken)
 			return res.status(200).json(SUCESS_RESPONSE);
 		});
 	} catch (err) {

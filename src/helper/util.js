@@ -48,4 +48,22 @@ function isEmpty(value) {
 
 const STRING_REGEX = /^(?=.*[\w\d]).+/;
 
+export const keys = (obj) => {
+    return Object.keys(obj) || [];
+}
+
+export const header = (data, removeHeader = []) => {
+    const respectiveHeader = { header: true };
+    if (!Array.isArray(data) || data.length === 0) {
+        return respectiveHeader;
+    }
+    keys(data[0]).forEach(key => {
+        if (removeHeader.includes(key)) {
+            return;
+        }
+        respectiveHeader[key] = key.replaceAll(/([A-Z])/g, ` $1`).trim();
+    })
+    return respectiveHeader;
+}
+
 export { logInfo, toString, toJson, toStringify, debounce, shuffle, isEmpty, STRING_REGEX };

@@ -28,3 +28,30 @@ export function fetchUser() {
     }
     return [userData, loading, error, getToken];
 }
+
+export function fetchLeaderBoard() {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
+
+    const fetchRankDetails = () => {
+        setLoading(true)
+        setError(null);
+        try {
+            const apiCall = axios.get(`${API_SERVER_URL}/user/getLeaderBoard`)
+            apiCall.then(response => {
+                setData(response?.data?.data)
+                console.log(response?.data?.data)
+            }).catch(err => {
+                setError(err.response.data)
+                console.log(error)
+            })
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return [data, loading, error, fetchRankDetails]
+}

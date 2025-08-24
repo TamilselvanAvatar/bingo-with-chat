@@ -52,6 +52,13 @@ export const createPayload = (key) => {
 	return token;
 };
 
+export const nested = (...arr) => {
+	if (Array.isArray(arr)) {
+		return arr.join('.');
+	}
+	return '';
+}
+
 export const check_regex = (userName, callback) => {
 	try {
 		if (userName.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
