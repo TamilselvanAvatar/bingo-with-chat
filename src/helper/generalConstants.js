@@ -14,7 +14,12 @@ export const SUCCESS_CODE = {
 }
 
 export const DASHBOARD = {
-    LEADER_BORAD: 'LEADER_BOARD'
+    HOME: 'HOME',
+    GAME_PLAY: 'GAME_PLAY',
+    FRIENDS: 'FRIENDS',
+    LEADER_BORAD: 'LEADER_BOARD',
+    SETTINGS: 'SETTINGS',
+    LOGOUT: 'LOGOUT',
 }
 
 export const RESPONSES = {

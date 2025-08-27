@@ -4,9 +4,11 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [leaderBoard, setLeaderBoard] = useState([]);
+    const [currentUserPoints, setCurrentUserPoints] = useState(0)
 
     const login = (userData) => {
         setUser(userData);
+        setCurrentUserPoints(userData.points)
     };
 
     const logout = () => {
@@ -14,7 +16,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, login, logout, leaderBoard, setLeaderBoard }}>
+        <UserContext.Provider value={{ user, login, logout, leaderBoard, setLeaderBoard, currentUserPoints }}>
             {children}
         </UserContext.Provider>
     );

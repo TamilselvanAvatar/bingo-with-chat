@@ -8,13 +8,14 @@
     align-items: center;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
 }
 
-.inner-container{
+.inner-container {
     width: 99%;
     height: 97%;
     border-radius: 20px;
@@ -23,7 +24,7 @@ html, body {
     display: flex;
 }
 
-.side-nav{
+.side-nav {
     width: 10%;
     height: 95%;
     border-radius: 20px;
@@ -35,17 +36,27 @@ html, body {
     align-items: center;
 }
 
-.icons{
+.icons {
     display: flex;
     flex-direction: column;
     padding: 20px;
 }
 
-.icons-align{
+.icons-align:hover {
+    background-color: rgb(98, 153, 202);
+    border-radius: 50px;
+}
+
+.icons-align {
     padding: 30px;
 }
 
-.dashboard-body{
+.active {
+    background-color: #9b53e38a;
+    border-radius: 12px;
+}
+
+.dashboard-body {
     width: calc(100% - 10%);
     height: 95%;
     border-radius: 20px;

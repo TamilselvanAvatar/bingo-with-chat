@@ -52,6 +52,24 @@ export const keys = (obj) => {
     return Object.keys(obj) || [];
 }
 
+export const groupBy = (data, field) => {
+    if (!Array.isArray(data)) {
+        const key = data[field];
+        return { key: [data] }
+    } else {
+        const result = {};
+        for (const item of data) {
+            const key = field(item);
+            if (result[key]) {
+                result[key].push(item);
+            } else {
+                result[key] = [item]
+            }
+        }
+        return result;
+    }
+}
+
 export const header = (data, removeHeader = []) => {
     const respectiveHeader = { header: true };
     if (!Array.isArray(data) || data.length === 0) {

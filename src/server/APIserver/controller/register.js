@@ -15,6 +15,16 @@ const { RESPONSES } = require('../../../helper/generalConstants');
 // 	apiSecret: "7Lqw4Op6B4RDRRiG"
 // })
 
+const setDefaultGames = (data) => {
+	if (data) {
+		data[USER.GAMES] = {
+			[USER.GAME.POINTS]: 0,
+			[USER.GAME.NO_OF_WINS]: 0,
+			[USER.GAME.NO_OF_MATCHES]: 0
+		}
+	}
+}
+
 module.exports = {
 	signUp: async function (req, res) {
 		try {
@@ -138,6 +148,7 @@ module.exports = {
 					if (!req_data.isEncrypted) {
 						req_data[USER.PASSWORD] = common.encrypt_password(req_data[USER.PASSWORD])
 					}
+					setDefaultGames(req_data)
 					const response = await userDB.create(req_data);
 					const dbData = response.toJSON();
 					const SUCCESS_RESPONSE = RESPONSES.GENERAL_SUCCESS('User Inserted Succesfully');

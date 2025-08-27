@@ -7,30 +7,47 @@
     flex-direction: column;
     background: #f0f8ff0f;
     border-radius: 12px;
-    overflow-y: auto;
-    max-height: 75%;
+    max-height: 50%;
+}
+
+.rows {
+    overflow-y: scroll;
+    flex-direction: column;
+    max-height: 65%;
+    justify-content: flex-start;
     -ms-overflow-style: none;
 }
 
 .row {
     justify-content: space-evenly;
     margin-bottom: 4px;
+    margin-top: 2px;
+    flex-shrink: 0;
 }
 
 .element {
+    flex: 1;
     padding: 10px;
     width: fit-content;
 }
 
+.current-player {
+    background-color: #ffe4c44d;
+    margin-top: 4px;
+}
+
 .header {
+    top: 0;
     position: sticky;
-    text-transform: capitalize;
+    text-transform: uppercase;
     background-color: rgba(229, 61, 61, 0.796);
     width: fit-content;
     text-align: center;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
 }
 
-.box::-webkit-scrollbar {
+.rows::-webkit-scrollbar {
     /* Will remobe scroll bar */
     display: none;
     /* Chrome, Safari, Opera */

@@ -34,11 +34,11 @@ export function fetchLeaderBoard() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState();
 
-    const fetchRankDetails = () => {
+    const fetchRankDetails = ({ currentUserPoints = 0, id }) => {
         setLoading(true)
         setError(null);
         try {
-            const apiCall = axios.get(`${API_SERVER_URL}/user/getLeaderBoard`)
+            const apiCall = axios.get(`${API_SERVER_URL}/user/getLeaderBoard`, { params: { points: currentUserPoints, id: id } })
             apiCall.then(response => {
                 setData(response?.data?.data)
                 console.log(response?.data?.data)
