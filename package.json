@@ -38,6 +38,8 @@
     "node-validator": "^0.1.27",
     "otp-generator": "^4.0.1",
     "vite": "^7.1.1",
-    "ws": "^8.18.3"
+    "ws": "^8.18.3",
+    "nodemailer": "^7.0.5",
+    "body-parser": "^2.2.0"
   }
 }

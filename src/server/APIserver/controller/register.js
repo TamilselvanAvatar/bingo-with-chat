@@ -9,6 +9,8 @@ const objUser = require('../controller/user.js');
 const common = require('../../../helper/common');
 const { STRING_REGEX } = require('../../../helper/util');
 const { RESPONSES } = require('../../../helper/generalConstants');
+const { objOTPModel } = require('../mongoSchema/otp');
+const { sendMail } = require("../components/mailer.js");
 // const Vonage = require('@vonage/server-sdk');
 // const vonage = new Vonage({
 // 	apiKey: "7b322514",
@@ -36,9 +38,9 @@ module.exports = {
 			const OTP = otpGenerator.generate(6, {
 				digits: true, alphabets: false, upperCase: false, specialChars: false
 			});
-			const from = "MilkMan OTP"
-			const to = "919788877388"
-			const text = 'Your Milkman otp is ' + OTP + '. ' + ' Kindly use this otp to login';
+			const from = "Bingo OTP"
+			const to = "9585302629"
+			const text = 'Your Bingo otp is ' + OTP + '. ' + ' Kindly use this otp to login';
 			console.log('otp ', OTP);
 			// vonage.message.sendSms(from, to, text, (err, responseData) => {
 			// 	if (err) {
@@ -153,8 +155,9 @@ module.exports = {
 					const dbData = response.toJSON();
 					const SUCCESS_RESPONSE = RESPONSES.GENERAL_SUCCESS('User Inserted Succesfully');
 					SUCCESS_RESPONSE.data = dbData;
+					var otp = await sendMail() // Will pass data here later 
+					await otpDB.create({email: req.body.email, otp});
 					return res.status(200).json(SUCCESS_RESPONSE)
-
 				} catch (err) {
 					console.error(err);
 					return res.status(500).json(RESPONSES.UNKNOWN_ERROR(err));
@@ -166,5 +169,6 @@ module.exports = {
 			return res.status(500).json(RESPONSES.UNKNOWN_ERROR(err));
 		}
 	},
+
 
 };

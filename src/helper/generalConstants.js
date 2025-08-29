@@ -30,5 +30,12 @@ export const RESPONSES = {
     INVALID_USER: () => (RESPONSE(400, 'Invalid User/Password', ERROR_CODE.INVALID_USER_NAME)),
     INVALID_PASSWORD: () => (RESPONSE(400, 'Invalid User/Password', ERROR_CODE.INVALID_PASSWORD)),
     USER_ALREADY_EXIST: () => (RESPONSE(400, 'User Already Exist', ERROR_CODE.USER_ALREADY_EXIST)),
+<<<<<<< HEAD
     SUCCESS_REPONSE: (data) => (RESPONSE(200, 'Success', 'SUCCESS', null, data))
+=======
+}
+
+export function generateOTP(){
+    return Math.floor(100000 + Math.random() * 900000);
+>>>>>>> 71929d5 (OTP Mailer Dashboard changes)
 }

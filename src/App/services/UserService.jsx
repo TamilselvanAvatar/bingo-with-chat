@@ -55,3 +55,20 @@ export function fetchLeaderBoard() {
 
     return [data, loading, error, fetchRankDetails]
 }
+
+export function checkOTP(otp) {
+    const [response, setResponse] = useState('');
+    try {
+        const apiCall = axios.post(`${API_SERVER_URL}/bingo/user/verifyOTP`, otp)
+        apiCall.then(response => {
+            setResponse(response.data)
+            console.log(userData)
+        }).catch(err => {
+            setError(err.response.data)
+            console.log(error)
+        })
+    } catch(err){
+        console.log(err);
+    }
+    return [response];
+}
