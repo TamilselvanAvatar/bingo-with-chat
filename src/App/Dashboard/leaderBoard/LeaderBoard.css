@@ -41,7 +41,7 @@
     position: sticky;
     text-transform: uppercase;
     background-color: rgba(229, 61, 61, 0.796);
-    width: fit-content;
+    /* width: fit-content; */
     text-align: center;
     border-top-right-radius: 12px;
     border-top-left-radius: 12px;

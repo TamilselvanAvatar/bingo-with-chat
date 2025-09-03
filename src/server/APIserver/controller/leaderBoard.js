@@ -45,12 +45,12 @@ const updateRank = (usersDetails = [], playerId = '', limit = 20) => {
 
 const getLeaderBoard = async (req, res) => {
     try {
-        const points = req?.query?.points || 0;
         const gamesPoints = nested(USER.GAMES, USER.GAME.POINTS);
-        const gamesNoMatches = nested(USER.GAMES, USER.GAME.NO_OF_MATCHES);
-        const gamesNoWins = nested(USER.GAMES, USER.GAME.NO_OF_WINS);
-        const usersDetailsModel = await userDB.find({ [USER.GAMES]: { '$exists': true }, [gamesPoints]: { '$gte': points } }, null, { sort: { [gamesPoints]: -1, [gamesNoMatches]: -1, [gamesNoWins]: -1, createdAt: -1 } })
+        const usersDetailsModel = await userDB.find({ [USER.GAMES]: { '$exists': true }}, null, { sort: { [gamesPoints]: -1, createdAt: -1 }, limit : 10 })
         const usersDetails = usersDetailsModel.map(model => model.toJSON());
+        if(!usersDetails.some((user) => user._id.toString() === req?.query?.id)){
+            usersDetails.push((await userDB.findById(req.query.id)).toJSON());
+        }
         return res.status(200).json(RESPONSES.SUCCESS_REPONSE(updateRank(usersDetails, req?.query?.id)));
     } catch (err) {
         console.error(err);

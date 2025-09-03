@@ -20,7 +20,7 @@ body {
     height: 100%;
     border-radius: 20px;
     background-color: rgb(4, 20, 74);
-    background-image: url('../images/shell.jpg');
+    /* background-image: url('../images/shell.jpg'); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -82,7 +82,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: black;
+    color: rgb(250, 250, 250); 
+    /* Color was black */
 }
 
 .dashboard-icons{

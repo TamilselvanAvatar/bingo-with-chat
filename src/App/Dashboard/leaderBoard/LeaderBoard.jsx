@@ -9,7 +9,7 @@ export default () => {
     const { user, leaderBoard, setLeaderBoard, currentUserPoints } = useContext(UserContext);
     useEffect(() => {
         if (data.length === 0 && leaderBoard.length === 0) {
-            fetchRankDetails({ currentUserPoints, id: user?.USER_ID })
+            fetchRankDetails({ currentUserPoints, id: user?.USER_ID || "68aeb8e4da2f164f241771ac" })
         }
     }, [])
 
@@ -18,7 +18,7 @@ export default () => {
     }, [data])
 
     const row = (className, element) => {
-        const playerStyle = className + (user?.USER_ID === element.id ? ' current-player ' : '');
+        const playerStyle = className + (user?.USER_ID || "68aeb8e4da2f164f241771ac" === element.id ? ' current-player ' : '');
         return (
             <div key={element.id} className={playerStyle}>
                 <div className='leader element'>{element.rank}</div>
