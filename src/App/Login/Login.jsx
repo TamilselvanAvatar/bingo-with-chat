@@ -6,11 +6,13 @@ import { ERROR_CODE } from '../../helper/generalConstants';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../components/UserContext';
 
+const LOG_OUT_TIME = import.meta.env.VITE_LOG_OUT_TIME || 1000;
+
 export default () => {
     const [userData, loading, error, getToken] = fetchUser();
     const [invalid, setInvalid] = useState({ userName: false, password: false })
     const [loginInfo, setLoginInfo] = useState({ userName: '', password: '' })
-    const { login } = useContext(UserContext);
+    const { login, removeSessionInformation } = useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,6 +30,7 @@ export default () => {
         if (!loading && userData?.token) {
             login(userData)
             navigate(`/dashboard/${userData.USER_ID}`)
+            setTimeout(() => { removeSessionInformation() }, +LOG_OUT_TIME)
         }
     }, [loading, userData])
 

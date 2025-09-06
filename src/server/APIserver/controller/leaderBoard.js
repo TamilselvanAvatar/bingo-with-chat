@@ -46,7 +46,7 @@ const updateRank = (usersDetails = [], playerId = '', limit = 20) => {
 const getLeaderBoard = async (req, res) => {
     try {
         const gamesPoints = nested(USER.GAMES, USER.GAME.POINTS);
-        const usersDetailsModel = await userDB.find({ [USER.GAMES]: { '$exists': true }}, null, { sort: { [gamesPoints]: -1, createdAt: -1 }, limit : 10 })
+        const usersDetailsModel = await userDB.find({ [USER.GAMES]: { '$exists': true }}, null, { sort: { [gamesPoints]: -1, createdAt: -1 }, limit : 20 })
         const usersDetails = usersDetailsModel.map(model => model.toJSON());
         if(!usersDetails.some((user) => user._id.toString() === req?.query?.id)){
             usersDetails.push((await userDB.findById(req.query.id)).toJSON());

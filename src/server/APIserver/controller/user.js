@@ -46,6 +46,7 @@ const login = async (req, res) => {
 			const SUCESS_RESPONSE = RESPONSES.LOGIN_SUCCESS('Logged in successfully')
 			SUCESS_RESPONSE.token = JWTtoken;
 			SUCESS_RESPONSE.USER_ID = userData._id;
+			SUCESS_RESPONSE[USER.USER_NAME] = userData[USER.USER_NAME];
 			setUserToken(userData, JWTtoken)
 			return res.status(200).json(SUCESS_RESPONSE);
 		});

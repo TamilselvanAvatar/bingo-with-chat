@@ -9,19 +9,21 @@ export default () => {
     const { user, leaderBoard, setLeaderBoard, currentUserPoints } = useContext(UserContext);
     useEffect(() => {
         if (data.length === 0 && leaderBoard.length === 0) {
-            fetchRankDetails({ currentUserPoints, id: user?.USER_ID || "68aeb8e4da2f164f241771ac" })
+            fetchRankDetails({ currentUserPoints, id: user?.USER_ID })
         }
     }, [])
 
     useEffect(() => {
-        setLeaderBoard(data);
+        if (leaderBoard.length === 0) {
+            setLeaderBoard(data);
+        }
     }, [data])
 
     const row = (className, element) => {
-        const playerStyle = className + (user?.USER_ID || "68aeb8e4da2f164f241771ac" === element.id ? ' current-player ' : '');
+        const playerStyle = className + (user?.USER_ID === element.id ? ' current-player ' : '');
         return (
             <div key={element.id} className={playerStyle}>
-                <div className='leader element'>{element.rank}</div>
+                <div className='leader element'>{user?.USER_ID === element.id ? '?' : element.rank}</div>
                 <div className='leader element'>{element.userName}</div>
                 <div className='leader element'>{element.noOfMatches}</div>
                 <div className='leader element'>{element.noOfWins}</div>
@@ -37,5 +39,5 @@ export default () => {
         </div>
     </div>
 
-    return loading ? <div>Loading...</div> : leaderBoardElement;
+    return loading ? <div>Loading...</div> : error ? <div>Failed to load Leader Board</div> : leaderBoardElement;
 }

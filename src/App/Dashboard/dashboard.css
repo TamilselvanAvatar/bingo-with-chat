@@ -53,6 +53,7 @@ body {
 
 .icons-align {
     padding: 30px;
+    cursor: pointer;
 }
 
 .active {
