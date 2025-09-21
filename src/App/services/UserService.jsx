@@ -56,6 +56,33 @@ export function fetchLeaderBoard() {
     return [data, loading, error, fetchRankDetails]
 }
 
+export function fetchFriendsOfUser() {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
+
+    const fetchFriends = ({ userId }) => {
+        setLoading(true)
+        setError(null);
+        try {
+            const apiCall = axios.get(`${API_SERVER_URL}/user/getFriends/${userId}`)
+            apiCall.then(response => {
+                setData(response?.data?.data)
+                console.log(response?.data?.data)
+            }).catch(err => {
+                setError(err.response.data)
+                console.log(error)
+            })
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return [data, loading, error, fetchFriends]
+}
+
 export function checkOTP(otp) {
     const [response, setResponse] = useState('');
     try {
@@ -67,7 +94,7 @@ export function checkOTP(otp) {
             setError(err.response.data)
             console.log(error)
         })
-    } catch(err){
+    } catch (err) {
         console.log(err);
     }
     return [response];

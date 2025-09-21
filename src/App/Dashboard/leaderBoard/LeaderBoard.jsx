@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { fetchLeaderBoard } from '../../services/UserService';
 import { UserContext } from '../../components/UserContext'
 import { header } from '../../../helper/util'

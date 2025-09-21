@@ -6,7 +6,7 @@ import { toJson } from '../../helper/util';
 import Friends from './friends/Friends';
 import GamePlay from './game/GamePlay';
 import Home from './home/Home';
-import LeaderBoard from './leaderBoard/leaderBoard';
+import LeaderBoard from './leaderBoard/LeaderBoard';
 import Login from '../Login/Mainpage'
 import Settings from './settings/Settings';
 import SideNav from './sideNav';

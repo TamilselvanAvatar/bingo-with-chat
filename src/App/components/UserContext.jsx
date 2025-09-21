@@ -6,6 +6,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [leaderBoard, setLeaderBoard] = useState([]);
+    const [friends, setFriends] = useState([]);
     const [currentUserPoints, setCurrentUserPoints] = useState(0);
     const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ export const UserProvider = ({ children }) => {
     const logout = (removeSessionInfo = false) => {
         setUser(null);
         setLeaderBoard([]);
+        setFriends([]);
         setCurrentUserPoints(0);
         if (removeSessionInfo) {
             removeSessionInformation()
@@ -32,7 +34,7 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ user, login, logout, leaderBoard, setLeaderBoard, currentUserPoints, removeSessionInformation }}>
+        <UserContext.Provider value={{ user, login, logout, leaderBoard, setLeaderBoard, friends, setFriends, currentUserPoints, removeSessionInformation }}>
             {children}
         </UserContext.Provider>
     );
