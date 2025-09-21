@@ -39,7 +39,7 @@ export default () => {
                 return <Home />
             }
             case DASHBOARD.GAME_PLAY: {
-                return <GamePlay />
+                return <GamePlay playerName={user?.userName} />
             }
             case DASHBOARD.LOGOUT: {
                 logout(true);
