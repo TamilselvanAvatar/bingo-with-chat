@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0" version="28.2.5">
+  <diagram name="Page-1" id="w02Ca81uqqLfsha93xfS">
+    <mxGraphModel dx="1034" dy="1718" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-5" target="UmapPTEVAb4eR3hsDDcu-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-5" value="Friend Request Triggered" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-6" target="UmapPTEVAb4eR3hsDDcu-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-6" target="UmapPTEVAb4eR3hsDDcu-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-6" value="Handle Friend Request" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="459" y="223" width="220" height="195" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-7" target="UmapPTEVAb4eR3hsDDcu-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-7" value="Web Socket Server" style="triangle;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="268" width="130" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-10" target="UmapPTEVAb4eR3hsDDcu-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-10" value="Route the Request" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="509" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-15" value="Offline" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="579" y="180" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-16" value="Online" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="500" y="430" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-19" value="Store The Message in New Collection" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="509" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-21" target="UmapPTEVAb4eR3hsDDcu-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-21" value="BE Server" style="triangle;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="460" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-23" target="UmapPTEVAb4eR3hsDDcu-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-23" target="UmapPTEVAb4eR3hsDDcu-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-23" value="Handle Request" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="920" y="454" width="130" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-25" value="Update Friend Object Of User" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="925" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-27" value="Accept As Friend" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="985" y="580" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-28" value="Do Nothing" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="925" y="288" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-30" value="Reject the Request" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="990" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-31" value="DB [MESSAGE]" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="720" y="-110" width="100" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-19" target="UmapPTEVAb4eR3hsDDcu-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="UmapPTEVAb4eR3hsDDcu-33" target="UmapPTEVAb4eR3hsDDcu-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="770" y="420" />
+              <mxPoint x="599" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UmapPTEVAb4eR3hsDDcu-33" value="When Ever The User Login&lt;br&gt;Fetch the Message" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
